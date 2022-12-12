@@ -1,0 +1,56 @@
+syntax = "proto2";
+
+package library;
+
+enum GenreType {
+	FANTASY = 0;
+	NOVEL = 1;
+	NONFICTION = 2;
+	FICTION = 3;
+}
+
+enum StatusType {
+	AVAILABLE = 0;
+	TAKEN = 1;
+}
+
+message Book {
+	optional string ISBN = 1;
+	optional string title = 2;
+	optional string author = 3;
+	optional int32 publishyear = 4;
+
+	optional GenreType genre = 5 [default = NONFICTION];
+}
+
+message InventoryItem {
+	optional string inventoryNumber = 1;
+	oneof book_oneof{
+		Book book = 2;
+	}
+	optional StatusType status = 3 [default = AVAILABLE];
+}
+
+message CreateBookRequest {
+	optional string ISBN = 1;
+	optional string title = 2;
+	optional string author = 3;
+	optional int32 publishyear = 4;
+	optional GenreType genre = 5;
+}
+
+message CreateBookResponse{
+	optional string message = 1;
+}
+
+message GetBookRequest {
+	optional string ISBN = 1;
+}
+message GetBookResponse {
+	optional string message = 1;
+	optional Book book = 2;
+}
+service InventoryService{
+	rpc CreateBook(CreateBookRequest) returns (CreateBookResponse){};
+	rpc GetBook(GetBookRequest) returns (GetBookResponse) {};
+}
