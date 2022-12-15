@@ -51,6 +51,6 @@ message GetBookResponse {
 	optional Book book = 2;
 }
 service InventoryService{
-	rpc CreateBook(CreateBookRequest) returns (CreateBookResponse){};
-	rpc GetBook(GetBookRequest) returns (GetBookResponse) {};
+	rpc CreateBook(CreateBookRequest) returns (CreateBookResponse){}
+	rpc GetBook(GetBookRequest) returns (GetBookResponse) {}
 }
