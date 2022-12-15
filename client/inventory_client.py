@@ -28,7 +28,15 @@ class LibraryClient:
     #input bookInformation: a dictionary with a book's ISBN, title, author, publishyear, and genre
     #output: reponse from server whether it is successful or not
     def creatingBook(self, bookInformation):
-        pass
+        message = libraryInventory_pb2.CreateBookRequest(
+            ISBN=bookInformation['ISBN'],
+            title=bookInformation['title'], 
+            author=bookInformation['author'], 
+            publishyear=bookInformation['publishyear'], 
+            genre=bookInformation['genre']
+        )
+
+        return self.stub.CreateBook(message)
 
     #Client function to call the rpc for GetBookResponse
     #input ISBN: a book's ISBN (string)
@@ -45,5 +53,5 @@ if __name__ == '__main__':
     logging.basicConfig()
 
     cli = LibraryClient()
-    print(cli.getBookInformation('978-3-16-148410-1'))
+    print(cli.getBookInformation('978-3-16-148410-2'))
     
